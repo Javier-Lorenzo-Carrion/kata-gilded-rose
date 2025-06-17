@@ -72,7 +72,7 @@ export class GildedRose {
 		this.decreaseDayToSell(item);
 	}
 
-	updateQualityNew(): Item[] {
+	updateQuality(): Item[] {
 		this.items.forEach((item: Item) => {
 			switch (item.name) {
 				case 'Sulfuras, Hand of Ragnaros':
