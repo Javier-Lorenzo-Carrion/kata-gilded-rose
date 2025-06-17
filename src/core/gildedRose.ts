@@ -17,12 +17,8 @@ export class GildedRose {
 		this.items = items;
 	}
 
-	updateQuality(): Item[] {
-		return this.updateQualityNew();
-	}
-
 	checkQualityIsInRange(item: Item): boolean {
-		if(item.quality >= 0 && item.quality <= 50) {
+		if (item.quality >= 0 && item.quality <= 50) {
 			return true;
 		} else {
 			throw new Error('Quality must be between 0 and 50');
@@ -40,7 +36,9 @@ export class GildedRose {
 
 	updateAgedBrie(item: Item) {
 		this.checkQualityIsInRange(item);
-		if (item.quality > 0) {item.quality += 1;}
+		if (item.quality > 0) {
+			item.quality += 1;
+		}
 		this.decreaseDayToSell(item);
 	}
 
@@ -52,7 +50,7 @@ export class GildedRose {
 		if (item.sellIn > 5 && item.sellIn <= 10) {
 			item.quality += 2;
 		}
-		if(item.sellIn <= 0) {
+		if (item.sellIn <= 0) {
 			item.quality = 0;
 		}
 		this.decreaseDayToSell(item);
@@ -60,23 +58,35 @@ export class GildedRose {
 
 	updateConjured(item: Item) {
 		this.checkQualityIsInRange(item);
-		if (item.quality > 0) {item.quality -= 2;}
+		if (item.quality > 0) {
+			item.quality -= 2;
+		}
 		this.decreaseDayToSell(item);
 	}
 
 	updateStandardProduct(item: Item) {
 		this.checkQualityIsInRange(item);
-		if (item.quality > 0) {item.quality -= 1;}
+		if (item.quality > 0) {
+			item.quality -= 1;
+		}
 		this.decreaseDayToSell(item);
 	}
 
 	updateQualityNew(): Item[] {
 		this.items.forEach((item: Item) => {
 			switch (item.name) {
-				case 'Sulfuras, Hand of Ragnaros': this.updateSulfuras(item); break;
-				case 'Aged brie': this.updateAgedBrie(item); break;
-				case 'Backstage passes to a TAFKAL80ETC concert': this.updateBackstagePasses(item); break;
-				default: this.updateStandardProduct(item); break;
+				case 'Sulfuras, Hand of Ragnaros':
+					this.updateSulfuras(item);
+					break;
+				case 'Aged brie':
+					this.updateAgedBrie(item);
+					break;
+				case 'Backstage passes to a TAFKAL80ETC concert':
+					this.updateBackstagePasses(item);
+					break;
+				default:
+					this.updateStandardProduct(item);
+					break;
 			}
 		});
 		return this.items;
