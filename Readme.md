@@ -39,3 +39,10 @@ npm run test
 La tarea es agregar una nueva característica para poder vender una nueva categoría de items conjurados que degrada su calidad al doble que los normales
 
 - No se puede modificar la clase Item ni sus propiedades
+- 
+# Propuesta de solución
+
+- Artículos eternos: sus propiedades no cambian (Sulfuras Hand of Ragnaros)
+- Artículos no eternos: sus propiedades si cambian (Queso brie, entradas al backstage y conjurados)
+  - Artículos mejores cuanto mas viejos: (queso brie y entradas al backstage)
+  - Artículos peores cuanto mas viejos: (conjurados)
