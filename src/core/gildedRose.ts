@@ -18,7 +18,9 @@ export class GildedRose {
 	}
 
 	checkQualityIsInRange(item: Item): boolean {
-		if (item.quality >= 0 && item.quality <= 50) {
+		const maxQuality = 50;
+		const minQuality = 0;
+		if (item.quality >= minQuality && item.quality <= maxQuality) {
 			return true;
 		} else {
 			throw new Error('Quality must be between 0 and 50');
@@ -30,19 +32,20 @@ export class GildedRose {
 	}
 
 	updateSulfuras(item: Item) {
-		this.checkQualityIsInRange(item);
 		this.decreaseDayToSell(item);
+		this.checkQualityIsInRange(item);
 	}
 
 	updateAgedBrie(item: Item) {
+		this.decreaseDayToSell(item);
 		this.checkQualityIsInRange(item);
 		if (item.quality > 0) {
 			item.quality += 1;
 		}
-		this.decreaseDayToSell(item);
 	}
 
 	updateBackstagePasses(item: Item) {
+		this.decreaseDayToSell(item);
 		this.checkQualityIsInRange(item);
 		if (item.sellIn > 0 && item.sellIn <= 5) {
 			item.quality += 3;
@@ -53,39 +56,36 @@ export class GildedRose {
 		if (item.sellIn <= 0) {
 			item.quality = 0;
 		}
-		this.decreaseDayToSell(item);
 	}
 
 	updateConjured(item: Item) {
+		this.decreaseDayToSell(item);
 		this.checkQualityIsInRange(item);
 		if (item.quality > 0) {
 			item.quality -= 2;
 		}
-		this.decreaseDayToSell(item);
 	}
 
 	updateStandardProduct(item: Item) {
+		this.decreaseDayToSell(item);
 		this.checkQualityIsInRange(item);
 		if (item.quality > 0) {
 			item.quality -= 1;
 		}
-		this.decreaseDayToSell(item);
 	}
 
 	updateQuality(): Item[] {
 		this.items.forEach((item: Item) => {
 			switch (item.name) {
-				case 'Sulfuras, Hand of Ragnaros':
-					this.updateSulfuras(item);
+				case 'Sulfuras, Hand of Ragnaros': this.updateSulfuras(item);
 					break;
-				case 'Aged brie':
-					this.updateAgedBrie(item);
+				case 'Aged brie': this.updateAgedBrie(item);
 					break;
-				case 'Backstage passes to a TAFKAL80ETC concert':
-					this.updateBackstagePasses(item);
+				case 'Backstage passes to a TAFKAL80ETC concert': this.updateBackstagePasses(item);
 					break;
-				default:
-					this.updateStandardProduct(item);
+				case 'Conjured': this.updateConjured(item);
+					break;
+				default: this.updateStandardProduct(item);
 					break;
 			}
 		});
